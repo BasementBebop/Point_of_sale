@@ -3,6 +3,7 @@ require "sinatra"
 require "sinatra/reloader"
 also_reload "lib/**/*.rb"
 require "./lib/product"
+require "./lib/purchase"
 
 get '/' do
   @products = Product.all()
