@@ -7,6 +7,7 @@ require "./lib/purchase"
 
 get '/' do
   @products = Product.all()
+  @purchases = Purchase.all
   erb :index
 end
 
@@ -22,6 +23,12 @@ get '/products/:id' do
   erb :product
 end
 
+get '/purchases/:id' do
+  @purchase = Purchase.find(params.fetch('id').to_i)
+  @products = Product.all
+  erb :purchase
+end
+
 patch "/products/:id" do
   name = params.fetch("name")
   price = params.fetch("price")
@@ -35,4 +42,18 @@ delete "/products/:id" do
   @product.destroy
   @products = Product.all
   erb :index
+end
+
+post "/purchases" do
+  date = params.fetch('date')
+  @purchase = Purchase.create({:date => date})
+  redirect "/"
+end
+
+patch "/purchases/:id" do
+  @purchase = Purchase.find(params.fetch("id").to_i)
+  product_ids = params.fetch("product_ids")
+  @purchase.update({:product_ids => product_ids})
+  @products = Product.all
+  erb(:purchase)
 end

@@ -1,16 +1,32 @@
 <h1><a href="/">Point of Sale</a></h1>
+
 <form action="/products" method="post">
   <label for="name">Product Name</label>
   <input id="name" name="name" type="text">
 <br>
   <label for="price">Product Price</label>
   <input id="price" name="price" type="text">
-<br>
-
   <button type="submit" class="btn">Submit</button>
 </form>
+
+<form action="/purchases" method="post">
+  <label for="date">Purchase Date</label>
+  <input id="date" name="date" type="text">
+  <button type="submit" class="btn">Submit</button>
+</form>
+
+<h2>Products</h2>
+
 <ul>
     <% @products.each() do |product| %>
         <li><a href="/products/<%= product.id %>"><%= product.name %></a> $<%= product.price %></li>
+    <% end %>
+</ul>
+
+<h2>Purchases</h2>
+
+<ul>
+    <% @purchases.each do |purchase| %>
+        <li><a href="/purchases/<%= purchase.id %>"><%= purchase.date %></a></li>
     <% end %>
 </ul>

@@ -1,0 +1,23 @@
+<h1><a href="/">Point of Sale</a></h1>
+
+<h2>Purchase date: <%= @purchase.date %></h2>
+
+<form action="/purchases/<%= @purchase.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <% @products.each do |product| %>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" name="product_ids[]" value="<%= product.id %>"><%= product.name %>
+    </label>
+  </div>
+  <% end %>
+  <button type="submit">Update</button>
+</form>
+
+<h3>Here are all the products in this purchase:</h3>
+
+<ul>
+    <% @purchase.products.each do |product| %>
+    <li>  <%= product.name %> <%= product.price %></li>
+    <% end %>
+</ul>
